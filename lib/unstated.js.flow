@@ -8,15 +8,11 @@ type Listener = () => mixed;
 const StateContext = createReactContext(null);
 
 export class Container<State: {}> {
-  state: State = {};
+  state: State;
   _listeners: Array<Listener> = [];
 
   constructor() {
     CONTAINER_DEBUG_CALLBACKS.forEach(cb => cb(this));
-  }
-
-  freeze(state: State): State {
-    return Object.freeze(state);
   }
 
   setState(
@@ -24,7 +20,7 @@ export class Container<State: {}> {
     callback?: () => void
   ): Promise<void> {
     return Promise.resolve().then(() => {
-      this.state = produce(this.state, producer);
+      this.state = produce(this.state, produce);
       const promises = this._listeners.map(listener => listener());
 
       return Promise.all(promises).then(() => {

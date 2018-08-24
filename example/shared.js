@@ -8,14 +8,20 @@ type CounterState = {
 };
 
 class CounterContainer extends Container<CounterState> {
-  state = { count: 0 };
+  state = Object.freeze({
+    count: 0
+  });
 
   increment() {
-    this.setState({ count: this.state.count + 1 });
+    this.setState(draft => {
+      draft.count = draft.count + 1;
+    });
   }
 
   decrement() {
-    this.setState({ count: this.state.count - 1 });
+    this.setState(draft => {
+      draft.count = draft.count - 1;
+    });
   }
 }
 
@@ -37,6 +43,8 @@ function Counter() {
 
 render(
   <Provider>
+    <Counter />
+    <Counter />
     <Counter />
   </Provider>,
   window.shared

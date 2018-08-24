@@ -8,12 +8,14 @@ type AppState = {
 };
 
 class AppContainer extends Container<AppState> {
-  state = {
+  state = Object.freeze({
     amount: 1
-  };
+  });
 
   setAmount(amount: number) {
-    this.setState({ amount });
+    this.setState(draft => {
+      draft.amount = amount;
+    });
   }
 }
 
@@ -27,11 +29,15 @@ class CounterContainer extends Container<CounterState> {
   };
 
   increment(amount: number) {
-    this.setState({ count: this.state.count + amount });
+    this.setState(draft => {
+      draft.count = draft.count + amount;
+    });
   }
 
   decrement(amount: number) {
-    this.setState({ count: this.state.count - amount });
+    this.setState(draft => {
+      draft.count = draft.count - amount;
+    });
   }
 }
 

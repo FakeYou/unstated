@@ -2,20 +2,27 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider, Subscribe, Container } from '../src/unstated';
+import produce from 'immer';
 
-type CounterState = {
-  count: number
-};
+interface CounterState {
+  +count: number;
+}
 
 class CounterContainer extends Container<CounterState> {
-  state = { count: 0 };
+  state = Object.freeze({
+    count: 0
+  });
 
   increment() {
-    this.setState({ count: this.state.count + 1 });
+    this.setState(draft => {
+      draft.count += 1;
+    });
   }
 
   decrement() {
-    this.setState({ count: this.state.count - 1 });
+    this.setState(draft => {
+      draft.count -= 1;
+    });
   }
 }
 
@@ -24,9 +31,11 @@ function Counter() {
     <Subscribe to={[CounterContainer]}>
       {counter => (
         <div>
+          {console.log(counter.state)}
           <button onClick={() => counter.decrement()}>-</button>
           <span>{counter.state.count}</span>
           <button onClick={() => counter.increment()}>+</button>
+          <button onClick={() => (counter.state.count += 1)}>error</button>
         </div>
       )}
     </Subscribe>

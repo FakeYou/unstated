@@ -76,5 +76,6 @@ function CounterWithAmountApp() {
 }
 
 test('basic', () => {
+  const counter = new CounterContainer();
   // still too lazy
 });
