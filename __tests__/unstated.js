@@ -44,12 +44,8 @@ function CounterWithAmount() {
       {(counter, amounter) => (
         <div>
           <span>{counter.state.count}</span>
-          <button onClick={() => counter.decrement(amounter.state.amount)}>
-            -
-          </button>
-          <button onClick={() => counter.increment(amounter.state.amount)}>
-            +
-          </button>
+          <button onClick={() => counter.decrement(amounter.state.amount)}>-</button>
+          <button onClick={() => counter.increment(amounter.state.amount)}>+</button>
         </div>
       )}
     </Subscribe>

@@ -1,0 +1,10 @@
+{
+	"parser": "babel-eslint",
+	"rules": {
+		"jsx-quotes": ["error", "prefer-double"],
+		"brace-style": ["error", "stroustrup"],
+		"no-tabs": "off",
+		"indent": ["error", "tab"],
+		"semi": ["error", "always"]
+	}
+}
